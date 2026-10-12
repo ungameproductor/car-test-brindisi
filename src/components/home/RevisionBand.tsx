@@ -1,4 +1,5 @@
 import PlateButton from "@/components/PlateButton";
+import SectionLink from "@/components/SectionLink";
 import { CONTACTS } from "@/content/site";
 
 export default function RevisionBand() {
@@ -15,6 +16,12 @@ export default function RevisionBand() {
         >
           Verifica se la tua revisione è scaduta
         </PlateButton>
+        <SectionLink
+          hash="domande-frequenti"
+          className="inline-flex min-h-11 items-center text-sm text-azzurro underline decoration-azzurro/40 underline-offset-4 hover:decoration-azzurro"
+        >
+          Hai dubbi? Leggi le domande frequenti
+        </SectionLink>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, MessageCircle } from "lucide-react";
+import SectionLink from "@/components/SectionLink";
 import SocialButtons from "@/components/SocialButtons";
 import { CONTACTS, NAV_LINKS } from "@/content/site";
 
@@ -36,6 +37,14 @@ export default function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <SectionLink
+                hash="domande-frequenti"
+                className="inline-flex min-h-11 items-center text-sm text-acciaio transition-colors duration-150 hover:text-azzurro"
+              >
+                Domande frequenti
+              </SectionLink>
+            </li>
           </ul>
         </nav>
 
