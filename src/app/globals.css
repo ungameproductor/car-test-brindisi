@@ -1,0 +1,435 @@
+@import "tailwindcss";
+
+/* Design system: palette del brief, scala 4–8–12–16–24–32–48, un solo chamfer */
+@theme inline {
+  --color-asfalto: #0f151c;
+  --color-lamiera: #17202a;
+  --color-acciaio: #8b9aaa;
+  --color-azzurro: #42b4e8;
+  --color-azzurro-scuro: #2c9bd0;
+  --color-ghiaccio: #f5f9fc;
+
+  --font-heading: var(--font-barlow-condensed);
+  --font-body: var(--font-barlow);
+
+  --spacing-18: 4.5rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+/* Nascosti finché l'intro non li rivela. Sulle altre pagine `is-visible` li mostra subito. */
+.site-header,
+.whatsapp-fab {
+  opacity: 0;
+}
+
+.site-header.is-visible,
+.whatsapp-fab.is-visible {
+  opacity: 1;
+}
+
+body {
+  margin: 0;
+  background-color: #0f151c;
+  color: #f5f9fc;
+  font-family: var(--font-barlow), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dots-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-barlow-condensed), system-ui, sans-serif;
+  font-weight: 700;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+/* Partenza del brief, rifinita perché su 360px un H1 da 3rem spezza male */
+h1 {
+  font-size: clamp(2.15rem, 8.4vw, 5.4rem);
+}
+
+h2 {
+  font-size: clamp(1.85rem, 4.6vw, 3.35rem);
+}
+
+h3 {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+:focus-visible {
+  outline: 2px solid #42b4e8;
+  outline-offset: 3px;
+}
+
+.wrap {
+  width: min(72rem, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+@media (min-width: 768px) {
+  .wrap {
+    width: min(72rem, calc(100% - 3rem));
+  }
+}
+
+@media (min-width: 1440px) {
+  .wrap {
+    width: min(76rem, calc(100% - 4rem));
+  }
+}
+
+.chamfer {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 12px),
+    calc(100% - 12px) 100%,
+    0 100%
+  );
+}
+
+.chamfer-lg {
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    0 100%
+  );
+}
+
+/* Pulsante lucido: bordo conico, puntini e riflesso (adattato da Hyperiux) */
+@property --shiny-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --shiny-offset {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@property --shiny-percent {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 5%;
+}
+
+@property --shiny-shine {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #ffffff;
+}
+
+@layer components {
+  .shiny {
+    --gleam-base: #0f151c;
+    --gleam-inset: #17202a;
+    --gleam-label: #f5f9fc;
+    --gleam-accent: #42b4e8;
+    --gleam-accent-soft: #8fd4f4;
+    --shiny-dot: #ffffff;
+    --duration: 3s;
+    --shadow-size: 2px;
+    --ease: 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+    --shiny-motion: shiny-spin linear infinite;
+
+    isolation: isolate;
+    position: relative;
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 0.85rem 1.5rem;
+    min-height: 3rem;
+    font-family: var(--font-barlow-condensed), system-ui, sans-serif;
+    font-size: 1rem;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    color: var(--gleam-label);
+    background:
+      linear-gradient(var(--gleam-base), var(--gleam-base)) padding-box,
+      conic-gradient(
+          from calc(var(--shiny-angle) - var(--shiny-offset)),
+          transparent,
+          var(--gleam-accent) var(--shiny-percent),
+          var(--shiny-shine) calc(var(--shiny-percent) * 2),
+          var(--gleam-accent) calc(var(--shiny-percent) * 3),
+          transparent calc(var(--shiny-percent) * 4)
+        )
+        border-box;
+    box-shadow: inset 0 0 0 1px var(--gleam-inset);
+    transition: var(--ease);
+    transition-property: --shiny-offset, --shiny-percent, --shiny-shine;
+  }
+
+  .shiny-sm {
+    min-height: 2.5rem;
+    padding: 0.45rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .shiny-light {
+    --gleam-base: #f5f9fc;
+    --gleam-inset: #d5e4ef;
+    --gleam-label: #0f151c;
+    --gleam-accent: #2c9bd0;
+    --gleam-accent-soft: #42b4e8;
+    --shiny-dot: #2c9bd0;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .shiny-light > span {
+    white-space: normal;
+    text-wrap: balance;
+  }
+
+  .shiny::before,
+  .shiny::after,
+  .shiny > span::before {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    inset-inline-start: 50%;
+    inset-block-start: 50%;
+    translate: -50% -50%;
+    z-index: -1;
+  }
+
+  .shiny:active {
+    translate: 0 1px;
+  }
+
+  .shiny::before {
+    --size: calc(100% - var(--shadow-size) * 3);
+    --position: 2px;
+    --space: calc(var(--position) * 2);
+    width: var(--size);
+    height: var(--size);
+    background: radial-gradient(
+        circle at var(--position) var(--position),
+        var(--shiny-dot) calc(var(--position) / 4),
+        transparent 0
+      )
+      padding-box;
+    background-size: var(--space) var(--space);
+    background-repeat: space;
+    mask-image: conic-gradient(
+      from calc(var(--shiny-angle) + 45deg),
+      black,
+      transparent 10% 90%,
+      black
+    );
+    border-radius: inherit;
+    opacity: 0.4;
+  }
+
+  .shiny::after {
+    --shiny-motion: shiny-sheen linear infinite;
+    width: 100%;
+    aspect-ratio: 1;
+    background: linear-gradient(-50deg, transparent, var(--gleam-accent), transparent);
+    mask-image: radial-gradient(circle at bottom, transparent 40%, black);
+    opacity: 0.55;
+  }
+
+  .shiny > span {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .shiny > span::before {
+    --size: calc(100% + 1rem);
+    width: var(--size);
+    height: var(--size);
+    box-shadow: inset 0 -1ex 2rem 4px var(--gleam-accent);
+    opacity: 0;
+    transition: opacity var(--ease);
+    animation: calc(var(--duration) * 1.5) shiny-breathe linear infinite;
+  }
+
+  .shiny {
+    animation: shiny-spin var(--duration) linear infinite;
+  }
+
+  .shiny::before {
+    animation: shiny-spin var(--duration) linear infinite;
+  }
+
+  .shiny::after {
+    animation: shiny-sheen var(--duration) linear infinite;
+  }
+
+  .shiny:is(:hover, :focus-visible) {
+    --shiny-percent: 20%;
+    --shiny-offset: 95deg;
+    --shiny-shine: var(--gleam-accent-soft);
+  }
+
+  .shiny:is(:hover, :focus-visible) > span::before {
+    opacity: 1;
+  }
+}
+
+@keyframes shiny-spin {
+  from {
+    --shiny-angle: 0deg;
+  }
+  to {
+    --shiny-angle: 360deg;
+  }
+}
+
+@keyframes shiny-sheen {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes shiny-breathe {
+  from,
+  to {
+    scale: 1;
+  }
+  50% {
+    scale: 1.2;
+  }
+}
+
+.panel {
+  background: #17202a;
+  border: 1px solid rgba(139, 154, 170, 0.2);
+}
+
+.icon-frame {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 0.9rem;
+  border: 2px solid #42b4e8;
+  background: #0f151c;
+  color: #42b4e8;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.icon-frame-sm {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.7rem;
+  border-width: 1.5px;
+}
+
+.lift {
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+.lift:hover {
+  border-color: rgba(66, 180, 232, 0.65);
+  transform: translateY(-3px);
+}
+
+.lift:hover .icon-frame {
+  box-shadow: 0 0 0 5px rgba(66, 180, 232, 0.14);
+}
+
+.gallery-tile {
+  transition: transform 180ms ease;
+}
+
+.gallery-tile:hover {
+  transform: translateY(-3px);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal.is-in,
+  .lift:hover,
+  .lift:hover .icon-frame,
+  .gallery-tile:hover {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+.field {
+  width: 100%;
+  background: #0f151c;
+  border: 1px solid rgba(139, 154, 170, 0.35);
+  color: #f5f9fc;
+  padding: 0.85rem 1rem;
+  font-size: 1rem;
+  line-height: 1.4;
+  border-radius: 2px;
+  transition: border-color 150ms;
+}
+
+.field::placeholder {
+  color: rgba(139, 154, 170, 0.55);
+}
+
+.field:focus {
+  outline: none;
+  border-color: #42b4e8;
+  box-shadow: 0 0 0 1px #42b4e8;
+}
+
+.field[aria-invalid="true"] {
+  border-color: #f5f9fc;
+}
