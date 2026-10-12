@@ -61,8 +61,6 @@
   z-index: 10;
   overflow: hidden;
   background: #0c1116;
-  perspective: 1300px;
-  perspective-origin: 50% 48%;
   user-select: none;
 }
 
@@ -72,7 +70,6 @@
   display: flex;
   flex-direction: column;
   transform-origin: 50% 48%;
-  transform-style: preserve-3d;
 }
 
 .wallTop,
@@ -227,8 +224,7 @@
   flex: 1 1 auto;
   min-width: 0;
   overflow: hidden;
-  background: linear-gradient(180deg, #10161c 0%, #10161c 70%, #2a3036 100%);
-  contain: paint;
+  background: #050608;
   box-shadow:
     inset 12px 0 18px rgba(0, 0, 0, 0.28),
     inset -12px 0 18px rgba(0, 0, 0, 0.28);
@@ -237,123 +233,17 @@
 .interior {
   position: absolute;
   inset: 0;
-  overflow: hidden;
   background:
-    radial-gradient(ellipse 80% 45% at 50% 18%, rgba(186, 208, 220, 0.05), transparent 70%),
-    #10161c;
+    radial-gradient(ellipse 58% 52% at 50% 46%, rgba(24, 28, 34, 0.72), rgba(8, 10, 12, 0.35) 46%, #050608 78%),
+    #050608;
 }
 
-.haze {
-  position: absolute;
-  inset: -8%;
-  transform: translateZ(0);
-  background:
-    radial-gradient(ellipse 70% 42% at 50% 46%, rgba(48, 66, 84, 0.32), transparent 72%),
-    linear-gradient(180deg, #121a22 0%, #1c2632 52%, #2a3036 100%);
-}
-
-.tube,
-.tubeFar,
-.post,
-.beam,
-.vehicle,
-.cabinet,
-.bayFloor {
-  position: absolute;
-  pointer-events: none;
-}
-
-.tube,
-.tubeFar {
-  top: 16%;
-  width: 22%;
-  height: 4px;
-  background: rgba(214, 230, 238, 0.22);
-}
-
-.tube {
-  left: 18%;
-}
-
-.tubeFar {
-  top: 21%;
-  right: 16%;
-  opacity: 0.65;
-}
-
-.post {
-  bottom: 18%;
-  width: 2%;
-  height: 36%;
-  background: rgba(139, 154, 170, 0.28);
-}
-
-.postLeft {
-  left: 24%;
-}
-
-.postRight {
-  right: 24%;
-}
-
-.beam {
-  right: 20%;
-  bottom: 50%;
-  left: 20%;
-  height: 5px;
-  background: rgba(66, 180, 232, 0.2);
-}
-
-.vehicle {
-  right: 18%;
-  bottom: 22%;
-  left: 18%;
-  height: 18%;
-  border-radius: 48% 48% 20% 20% / 72% 72% 28% 28%;
-  background: linear-gradient(180deg, rgba(168, 184, 198, 0.62), rgba(36, 46, 56, 0.2));
-}
-
-.cabinet {
-  right: 7%;
-  bottom: 18%;
-  width: 11%;
-  height: 26%;
-  background: rgba(90, 108, 124, 0.16);
-}
-
-.bayFloor {
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 48%;
-  background-color: #2c3238;
-  background-image:
-    linear-gradient(90deg, transparent 46%, rgba(255, 255, 255, 0.14) 50%, transparent 54%),
-    repeating-linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.08) 0 2px,
-      transparent 2px 72px
-    ),
-    repeating-linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0 2px, transparent 2px 56px),
-    linear-gradient(180deg, transparent 0%, #32383e 24%, #262b30 100%);
-}
-
-.dim {
+.veil {
   position: absolute;
   inset: 0;
-  background: rgba(6, 10, 14, 0.48);
-  pointer-events: none;
-}
-
-.sill {
-  position: absolute;
-  right: 8%;
-  bottom: 0;
-  left: 8%;
-  z-index: 2;
-  height: 30%;
-  background: radial-gradient(ellipse 68% 80% at 50% 100%, rgba(66, 180, 232, 0.32), transparent 72%);
-  opacity: 0.4;
+  z-index: 8;
+  background: #050608;
+  opacity: 0;
   pointer-events: none;
 }
 
@@ -672,15 +562,6 @@
     display: none;
   }
 
-  .tubeFar,
-  .cabinet {
-    display: none;
-  }
-
-  .haze {
-    filter: none;
-  }
-
   .logoGlow {
     filter: blur(10px);
   }
@@ -706,10 +587,6 @@
 
   .spill {
     width: min(48vw, 520px);
-  }
-
-  .haze {
-    filter: none;
   }
 
   .logoGlow {
@@ -746,10 +623,6 @@
 
   .spill {
     width: min(42vw, 620px);
-  }
-
-  .haze {
-    filter: none;
   }
 
   .logoGlow {

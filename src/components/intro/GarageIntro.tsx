@@ -45,9 +45,7 @@ export default function GarageIntro({ children, onComplete }: GarageIntroProps) 
   const doorRef = useRef<HTMLDivElement>(null);
   const hintRef = useRef<HTMLParagraphElement>(null);
   const spillRef = useRef<HTMLDivElement>(null);
-  const sillRef = useRef<HTMLDivElement>(null);
-  const dimRef = useRef<HTMLDivElement>(null);
-  const hazeRef = useRef<HTMLDivElement>(null);
+  const veilRef = useRef<HTMLDivElement>(null);
   const skipRef = useRef<HTMLAnchorElement>(null);
   const [heroLocked, setHeroLocked] = useState(false);
 
@@ -113,11 +111,10 @@ export default function GarageIntro({ children, onComplete }: GarageIntroProps) 
         const door = doorRef.current;
         const hint = hintRef.current;
         const spill = spillRef.current;
-        const sill = sillRef.current;
-        const dim = dimRef.current;
+        const veil = veilRef.current;
         const intro = introRef.current;
         const skip = skipRef.current;
-        if (!stage || !shell || !door || !hint || !spill || !sill || !dim || !intro || !skip) return;
+        if (!stage || !shell || !door || !hint || !spill || !veil || !intro || !skip) return;
 
         const timeline = gsap.timeline({
           defaults: { ease: "none" },
@@ -131,31 +128,29 @@ export default function GarageIntro({ children, onComplete }: GarageIntroProps) 
             anticipatePin: 1,
             invalidateOnRefresh: true,
             onToggle: (self) => {
-              const value = self.isActive ? "transform" : "auto";
-              door.style.willChange = value;
-              shell.style.willChange = value;
+              door.style.willChange = self.isActive ? "transform" : "auto";
             },
             onLeave: revealSite,
           },
         });
 
-        // 0–12% logo fermo e CTA che si dissolve.
-        // 12–46% la serranda sale.
-        // 40–82% la camera entra nell'apertura (translateZ al posto dello scale).
-        // 82–100% dissolvenza sulla homepage.
+        // Uno solo tween per proprietà: in ritorno lo scroll richiude la scena senza conflitti.
+        // Lo zoom è uno scale 2D. Il translateZ precedente superava la texture della GPU e l'immagine restava rotta.
+        gsap.set(shell, { scale: 1, transformOrigin: "50% 48%" });
+        gsap.set(veil, { opacity: 0 });
         timeline
           .to(hint, { autoAlpha: 0, duration: 0.16 }, 0)
-          .to(spill, { opacity: 0.55, duration: 0.12 }, 0)
-          .to(sill, { opacity: 0.75, duration: 0.12 }, 0)
-          .to(door, { yPercent: -6, duration: 0.12 }, 0)
-          .to(door, { yPercent: -108, duration: 0.34, ease: "power2.inOut" }, 0.1)
-          .to(spill, { opacity: 0.85, duration: 0.34 }, 0.1)
-          .to(sill, { opacity: 1, duration: 0.34 }, 0.1)
-          .to(dim, { opacity: 0.14, duration: 0.34 }, 0.1)
-          .to(shell, { z: 1120, ease: "power2.in", duration: 0.36, force3D: true }, 0.38)
-          .to(dim, { opacity: 0, duration: 0.22 }, 0.46)
-          .to(intro, { autoAlpha: 0, duration: 0.14 }, 0.84)
-          .to(skip, { autoAlpha: 0, duration: 0.08 }, 0.8)
+          .to(spill, { opacity: 0.85, duration: 0.36 }, 0.08)
+          .to(door, { yPercent: -108, duration: 0.36, ease: "power2.inOut" }, 0.08)
+          .fromTo(
+            shell,
+            { scale: 1, transformOrigin: "50% 48%" },
+            { scale: 2, ease: "power1.inOut", duration: 0.34, transformOrigin: "50% 48%" },
+            0.38
+          )
+          .to(veil, { opacity: 1, duration: 0.16, ease: "power1.in" }, 0.72)
+          .to(skip, { autoAlpha: 0, duration: 0.08 }, 0.84)
+          .to(intro, { autoAlpha: 0, duration: 0.12 }, 0.88)
           .to(
             ".site-header, .whatsapp-fab",
             { autoAlpha: 1, duration: 0.1, onStart: revealSite },
@@ -251,20 +246,7 @@ export default function GarageIntro({ children, onComplete }: GarageIntroProps) 
               <div className={styles.opening}>
                 <div className={`${styles.rail} ${styles.railLeft}`} />
                 <div className={styles.doorway}>
-                  <div className={styles.interior}>
-                    <div ref={hazeRef} className={styles.haze}>
-                      <span className={styles.tube} />
-                      <span className={styles.tubeFar} />
-                      <span className={`${styles.post} ${styles.postLeft}`} />
-                      <span className={`${styles.post} ${styles.postRight}`} />
-                      <span className={styles.beam} />
-                      <span className={styles.vehicle} />
-                      <span className={styles.cabinet} />
-                      <span className={styles.bayFloor} />
-                    </div>
-                    <div ref={dimRef} className={styles.dim} />
-                    <div ref={sillRef} className={styles.sill} />
-                  </div>
+                  <div className={styles.interior} />
                   <div ref={doorRef} className={styles.door}>
                     {SLATS.map((variant, index) => (
                       <div key={variant + index} className={`${styles.slat} ${styles[variant]}`} />
@@ -302,6 +284,7 @@ export default function GarageIntro({ children, onComplete }: GarageIntroProps) 
             </p>
           </div>
         </div>
+        <div ref={veilRef} className={styles.veil} />
       </div>
     </section>
   );

@@ -3,15 +3,58 @@
  *  Per il passaggio ai contenuti veri, basta sostituire i valori.
  * ──────────────────────────────────────────────────────────────── */
 
-export const CONTACTS = {
+export const WHATSAPP = "https://wa.me/393284187050";
+export const PORTALE_REVISIONI =
+  "https://www.ilportaledellautomobilista.it/interrogazionistoricorevisioni/spa/";
+
+export const SITE = {
+  name: "Car Test Brindisi",
+  description: "Centro revisioni auto e moto e officina meccanica a Brindisi.",
+  url: "https://www.cartestbrindisi.it/",
+  logo: "https://www.cartestbrindisi.it/brand/logo-trim.png",
+  telephone: "+393284187050",
+  whatsappDisplay: "+39 328 418 7050",
   email: "info@cartestbrindisi.it",
-  whatsapp: "+39 328 418 7050",
-  whatsappLink: "https://wa.me/393284187050",
+  streetAddress: "Viale Spagna 24/30",
+  addressLocality: "Brindisi",
+  addressRegion: "BR",
+  addressCountry: "IT",
   instagram: "https://www.instagram.com/cartest.brindisi/",
   facebook: "https://www.facebook.com/CarTestBrindisi",
-  portalRevisioni:
-    "https://www.ilportaledellautomobilista.it/interrogazionistoricorevisioni/spa/",
-  address: "Viale Spagna 24/30, Brindisi",
+} as const;
+
+export function buildAutoRepairJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AutoRepair",
+    "@id": `${SITE.url}#attivita`,
+    name: SITE.name,
+    description: SITE.description,
+    url: SITE.url,
+    logo: SITE.logo,
+    image: SITE.logo,
+    telephone: SITE.telephone,
+    email: SITE.email,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: SITE.streetAddress,
+      addressLocality: SITE.addressLocality,
+      addressRegion: SITE.addressRegion,
+      addressCountry: SITE.addressCountry,
+    },
+    areaServed: { "@type": "City", name: SITE.addressLocality },
+    sameAs: [SITE.instagram, SITE.facebook],
+  };
+}
+
+export const CONTACTS = {
+  email: SITE.email,
+  whatsapp: SITE.whatsappDisplay,
+  whatsappLink: WHATSAPP,
+  instagram: SITE.instagram,
+  facebook: SITE.facebook,
+  portalRevisioni: PORTALE_REVISIONI,
+  address: `${SITE.streetAddress}, ${SITE.addressLocality}`,
   mapsUrl:
     "https://www.google.com/maps/search/?api=1&query=Viale%20Spagna%2024%2F30%2C%20Brindisi",
   hours: [

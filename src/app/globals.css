@@ -8,6 +8,7 @@
   --color-azzurro: #42b4e8;
   --color-azzurro-scuro: #2c9bd0;
   --color-ghiaccio: #f5f9fc;
+  --color-bozza: #f2b544;
 
   --font-heading: var(--font-barlow-condensed);
   --font-body: var(--font-barlow);
@@ -396,6 +397,42 @@ p {
   transform: none;
 }
 
+.faq-summary {
+  list-style: none;
+}
+
+.faq-summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-chevron {
+  transition: transform 180ms ease;
+}
+
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+}
+
+@supports (interpolate-size: allow-keywords) {
+  .faq-item {
+    interpolate-size: allow-keywords;
+  }
+
+  .faq-item::details-content {
+    height: 0;
+    overflow: clip;
+    opacity: 0;
+    transition:
+      height 180ms ease,
+      opacity 180ms ease;
+  }
+
+  .faq-item[open]::details-content {
+    height: auto;
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .reveal.is-in,
@@ -404,6 +441,11 @@ p {
   .gallery-tile:hover {
     opacity: 1;
     transform: none;
+    transition: none;
+  }
+
+  .faq-chevron,
+  .faq-item::details-content {
     transition: none;
   }
 }
