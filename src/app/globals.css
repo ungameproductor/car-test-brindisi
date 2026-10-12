@@ -554,3 +554,20 @@ p {
 .field[aria-invalid="true"] {
   border-color: #f5f9fc;
 }
+
+/* Informativa: titoli di sezione più bassi del display delle pagine vetrina */
+.legal h2 {
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  line-height: 1.2;
+}
+
+.legal .wrap {
+  width: min(42rem, calc(100% - 2rem));
+  background: #0f151c;
+}
+
+@media (min-width: 768px) {
+  .legal .wrap {
+    width: min(42rem, calc(100% - 3rem));
+  }
+}

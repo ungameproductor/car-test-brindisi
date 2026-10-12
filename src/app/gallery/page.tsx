@@ -18,8 +18,7 @@ export default function GalleryPage() {
           <div className="max-w-xl">
             <h1 className="text-ghiaccio mb-6">Gallery</h1>
             <p className="text-acciaio text-lg leading-relaxed">
-              Una selezione di immagini dell&apos;officina, delle attrezzature
-              e del lavoro quotidiano. Le foto definitive saranno fornite dal cliente.
+              Foto e video dell&apos;officina, delle attrezzature e del lavoro su auto e moto.
             </p>
           </div>
         </section>

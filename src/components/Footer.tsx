@@ -45,6 +45,14 @@ export default function Footer() {
                 Domande frequenti
               </SectionLink>
             </li>
+            <li>
+              <Link
+                href="/privacy"
+                className="inline-flex min-h-11 items-center text-sm text-acciaio transition-colors duration-150 hover:text-azzurro"
+              >
+                Privacy
+              </Link>
+            </li>
           </ul>
         </nav>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import ShinyButton from "@/components/ShinyButton";
 
 /**
@@ -80,6 +81,18 @@ export default function ContactForm() {
           Anteprima: in questa versione il messaggio non viene inviato.
         </p>
       )}
+
+      <p className="text-sm leading-relaxed text-acciaio">
+        Nome, email e messaggio restano nel browser: in questa anteprima non vengono inviati. Quando
+        l&apos;invio sarà attivo, li useremo solo per risponderti.{" "}
+        <Link
+          href="/privacy"
+          className="text-ghiaccio underline decoration-acciaio/50 underline-offset-4 hover:text-azzurro"
+        >
+          Informativa privacy
+        </Link>
+        .
+      </p>
 
       <ShinyButton type="submit" className="self-stretch sm:self-start">
         Invia messaggio

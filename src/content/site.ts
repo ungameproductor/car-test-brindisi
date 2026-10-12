@@ -156,17 +156,15 @@ export const TEAM = [
   },
 ];
 
-// 9 elementi con rapporti d'aspetto misti: 4:3, 1:1, 3:4
-export const GALLERY_ITEMS = [
-  { id: 1, aspect: "4/3" as const, label: "Foto fornita dal cliente" },
-  { id: 2, aspect: "1/1" as const, label: "Foto fornita dal cliente" },
-  { id: 3, aspect: "3/4" as const, label: "Foto fornita dal cliente" },
-  { id: 4, aspect: "4/3" as const, label: "Foto fornita dal cliente" },
-  { id: 5, aspect: "3/4" as const, label: "Foto fornita dal cliente" },
-  { id: 6, aspect: "1/1" as const, label: "Foto fornita dal cliente" },
-  { id: 7, aspect: "1/1" as const, label: "Foto fornita dal cliente" },
-  { id: 8, aspect: "4/3" as const, label: "Foto fornita dal cliente" },
-  { id: 9, aspect: "3/4" as const, label: "Foto fornita dal cliente" },
+export const REVIEWS = [
+  {
+    id: "google-gestione",
+    source: "Recensione Google",
+    rating: 5,
+    when: "1 mese fa",
+    quote:
+      "Ottima esperienza, da quando hanno cambiato gestione l’aria di cambiamento si sente ed in questo caso ha portato solo ottime novità! Alessio e Marco sono stati super competenti e professionali, ci torneremo sicuramente. Consigliati.",
+  },
 ];
 
 export const NAV_LINKS = [

@@ -1,22 +1,20 @@
 "use client";
 import { useEffect, useCallback } from "react";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import type { GalleryMedia } from "@/content/gallery";
 
 interface LightboxProps {
-  total: number;
+  items: GalleryMedia[];
   current: number;
   onClose: () => void;
   onPrev: () => void;
   onNext: () => void;
 }
 
-export default function Lightbox({
-  total,
-  current,
-  onClose,
-  onPrev,
-  onNext,
-}: LightboxProps) {
+export default function Lightbox({ items, current, onClose, onPrev, onNext }: LightboxProps) {
+  const item = items[current];
+  const total = items.length;
+
   const handleKey = useCallback(
     (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -35,61 +33,71 @@ export default function Lightbox({
     };
   }, [handleKey]);
 
+  if (!item) return null;
+
   return (
     <div
       role="dialog"
       aria-modal="true"
-      aria-label="Lightbox gallery"
+      aria-label={item.alt}
       className="fixed inset-0 z-[200] flex items-center justify-center"
       style={{ background: "rgba(15,21,28,0.95)" }}
       onClick={onClose}
     >
-      {/* Contenuto lightbox (non propaga il click) */}
       <div
-        className="relative flex items-center justify-center w-full h-full"
+        className="relative flex h-full w-full items-center justify-center px-14 py-16"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Segnaposto immagine */}
-        <div
-          className="flex flex-col items-center justify-center gap-4 rounded-sm"
-          style={{
-            width: "min(80vw, 700px)",
-            height: "min(75vh, 500px)",
-            backgroundColor: "#17202A",
-            backgroundImage:
-              "repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(139,154,170,0.06) 8px, rgba(139,154,170,0.06) 9px)",
-          }}
-        >
-          <span className="text-acciaio text-sm">Foto fornita dal cliente</span>
-          <span className="text-acciaio/40 text-xs">{current + 1} / {total}</span>
-        </div>
+        <figure className="flex max-h-full max-w-full flex-col items-center gap-3">
+          {item.kind === "video" ? (
+            <video
+              key={item.src}
+              src={item.src}
+              controls
+              autoPlay
+              playsInline
+              className="max-h-[min(72vh,860px)] w-auto max-w-full bg-black"
+            />
+          ) : (
+            <img
+              src={item.src}
+              alt={item.alt}
+              width={item.width}
+              height={item.height}
+              className="max-h-[min(72vh,860px)] w-auto max-w-full object-contain"
+            />
+          )}
+          <figcaption className="max-w-xl text-center text-sm text-acciaio">
+            {item.alt}
+            <span className="mt-1 block text-xs text-acciaio/60">
+              {current + 1} / {total}
+            </span>
+          </figcaption>
+        </figure>
 
-        {/* Chiudi */}
         <button
           onClick={onClose}
-          aria-label="Chiudi lightbox"
+          aria-label="Chiudi"
           className="absolute top-[max(1rem,env(safe-area-inset-top))] right-4 flex h-11 w-11 items-center justify-center text-ghiaccio hover:text-azzurro"
         >
           <X size={24} />
         </button>
 
-        {/* Freccia prev */}
         {total > 1 && (
           <button
             onClick={onPrev}
-            aria-label="Immagine precedente"
-            className="absolute left-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center text-ghiaccio hover:text-azzurro sm:left-4"
+            aria-label="Elemento precedente"
+            className="absolute top-1/2 left-2 flex h-11 w-11 -translate-y-1/2 items-center justify-center text-ghiaccio hover:text-azzurro sm:left-4"
           >
             <ChevronLeft size={32} />
           </button>
         )}
 
-        {/* Freccia next */}
         {total > 1 && (
           <button
             onClick={onNext}
-            aria-label="Immagine successiva"
-            className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 items-center justify-center text-ghiaccio hover:text-azzurro sm:right-4"
+            aria-label="Elemento successivo"
+            className="absolute top-1/2 right-2 flex h-11 w-11 -translate-y-1/2 items-center justify-center text-ghiaccio hover:text-azzurro sm:right-4"
           >
             <ChevronRight size={32} />
           </button>
