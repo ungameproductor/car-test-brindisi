@@ -14,7 +14,7 @@ export default function GalleryPage() {
     <>
       <Header visible />
       <main className="pt-[calc(4rem+env(safe-area-inset-top))]">
-        <section className="wrap py-16 sm:py-24">
+        <section className="wrap pt-14 pb-2 sm:pt-20 sm:pb-4">
           <div className="max-w-xl">
             <h1 className="text-ghiaccio mb-6">Gallery</h1>
             <p className="text-acciaio text-lg leading-relaxed">
@@ -23,7 +23,6 @@ export default function GalleryPage() {
           </div>
         </section>
 
-        {/* Mosaico gallery — componente client per il lightbox */}
         <GalleryClient />
       </main>
       <Footer />

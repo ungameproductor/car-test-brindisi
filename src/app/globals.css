@@ -376,14 +376,6 @@ p {
   box-shadow: 0 0 0 5px rgba(66, 180, 232, 0.14);
 }
 
-.gallery-tile {
-  transition: transform 180ms ease;
-}
-
-.gallery-tile:hover {
-  transform: translateY(-3px);
-}
-
 .reveal {
   opacity: 0;
   transform: translateY(18px);
@@ -516,8 +508,7 @@ p {
   .reveal,
   .reveal.is-in,
   .lift:hover,
-  .lift:hover .icon-frame,
-  .gallery-tile:hover {
+  .lift:hover .icon-frame {
     opacity: 1;
     transform: none;
     transition: none;

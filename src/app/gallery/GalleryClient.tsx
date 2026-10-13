@@ -1,8 +1,8 @@
 "use client";
+
 import { useState } from "react";
-import { Play } from "lucide-react";
 import Lightbox from "@/components/Lightbox";
-import Reveal from "@/components/Reveal";
+import SillageGallery from "@/components/gallery/SillageGallery";
 import { GALLERY_ITEMS } from "@/content/gallery";
 
 export default function GalleryClient() {
@@ -14,46 +14,8 @@ export default function GalleryClient() {
   const handleNext = () => setOpen((i) => (i === null ? null : (i + 1) % GALLERY_ITEMS.length));
 
   return (
-    <section className="wrap pb-24">
-      <div className="columns-1 gap-4 min-[480px]:columns-2 min-[1024px]:columns-3">
-        {GALLERY_ITEMS.map((item, idx) => (
-          <Reveal key={item.id} className="mb-4 break-inside-avoid" delay={(idx % 3) * 70}>
-            <button
-              type="button"
-              onClick={() => setOpen(idx)}
-              aria-label={`${item.kind === "video" ? "Apri video" : "Apri foto"}: ${item.alt}`}
-              className="gallery-tile relative block w-full overflow-hidden rounded-sm"
-            >
-              {item.kind === "video" ? (
-                <video
-                  src={item.src}
-                  muted
-                  playsInline
-                  preload="metadata"
-                  width={item.width}
-                  height={item.height}
-                  className="pointer-events-none h-auto w-full"
-                />
-              ) : (
-                <img
-                  src={item.src}
-                  alt=""
-                  width={item.width}
-                  height={item.height}
-                  className="h-auto w-full"
-                />
-              )}
-              {item.kind === "video" && (
-                <span className="pointer-events-none absolute inset-0 flex items-center justify-center">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-full bg-asfalto/80 text-ghiaccio">
-                    <Play size={22} fill="currentColor" aria-hidden="true" />
-                  </span>
-                </span>
-              )}
-            </button>
-          </Reveal>
-        ))}
-      </div>
+    <section className="pb-20 sm:pb-28" aria-label="Foto e video dell'officina">
+      <SillageGallery items={GALLERY_ITEMS} onOpen={setOpen} paused={open !== null} />
 
       {open !== null && (
         <Lightbox
