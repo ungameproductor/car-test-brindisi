@@ -21,7 +21,7 @@ export default function Footer() {
           <p className="max-w-xs text-sm leading-relaxed text-acciaio">
             Centro revisioni e officina meccanica a Brindisi. Auto e moto.
           </p>
-          <p className="text-xs text-acciaio/70">P.IVA [da fornire]</p>
+          <p className="text-xs text-acciaio/70">P.IVA {CONTACTS.vat}</p>
         </div>
 
         <nav aria-label="Pagine nel footer">

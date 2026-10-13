@@ -19,6 +19,7 @@ export const SITE = {
   addressLocality: "Brindisi",
   addressRegion: "BR",
   addressCountry: "IT",
+  vat: "02490370745",
   instagram: "https://www.instagram.com/cartest.brindisi/",
   facebook: "https://www.facebook.com/CarTestBrindisi",
 } as const;
@@ -35,6 +36,7 @@ export function buildAutoRepairJsonLd() {
     image: SITE.logo,
     telephone: SITE.telephone,
     email: SITE.email,
+    vatID: `IT${SITE.vat}`,
     address: {
       "@type": "PostalAddress",
       streetAddress: SITE.streetAddress,
@@ -81,7 +83,7 @@ export const CONTACTS = {
     "Lunedì–venerdì: 8:00–13:00 e 14:00–17:00. Revisioni fino alle 18:00.",
     "Sabato: 8:00–13:00.",
   ],
-  vat: "[da fornire]",
+  vat: SITE.vat,
 };
 
 export const SERVICES: {
@@ -156,14 +158,54 @@ export const TEAM = [
   },
 ];
 
+export const GOOGLE_REVIEWS_URL =
+  "https://www.google.com/search?sca_esv=95a3924c91beb42b&sxsrf=APpeQnuDt48U17t0hXKL4jj6hWKeXQXwFw:1791882045235&q=car+test+brindisi&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_zwKQi4Poop_BwO9vhVi_AYNVFwB4tCZ2T8ZWKSCry2rKQT7_CS833MjwqGb2BC_-TbkgBo%3D&uds=AJ5uw1_rUfMqrtZe7QfpdFGwaPC3zrgRQmTJ8X06rMrY5IML0-2sUCF7E_H35WF1hSLgx8PQ7MT9mOWgrCnnBB_6Gdy3bbYP1FKGINSEElcGTfQSCps1TPA&sa=X&ved=2ahUKEwjYjqTm0LaXAxXr1QIHHbf-G5UQ3PALegQIHxAE&biw=1502&bih=814&dpr=2#sv=CAESowIKjwISjAIKzAFBSmlUNHRMOWFzbUF1WUlpRTZCWnY5Z01QcllFenFMaXdRUFRNU29FWTFCZ1NkSTRXLWM5UGp0NnNBT19pSjdMeXc2ZzJJNXFZSnJCMlpTSXhaejItQ3NNUU1URGt4MUZkV29FVzItUzJNbG5xS1FlRmpHOWZaVnBtWUhUbWx1TXRFaG1rZlQyWTRaeXdPRVlIZ2tKVDM4dmM4TWFZYkl6RU92dERDcUtBdk43S2ZudnU5dDBaSzIwUXFycm81UkpEMVZvLWJpb1UtdTASF1F2UE5hdnFSSXZ1Qzc3NFBwWUtad0FrGiJBRHNyOWZTMHNtOEpYWHlhZUZ1c2w3MElIZHExdExvNnlnEgQ4MTE0GgEzKgAwADgBQAAYACCJuIGTDkoCEAE";
+
 export const REVIEWS = [
   {
-    id: "google-gestione",
-    source: "Recensione Google",
+    id: "giuliano",
+    author: "Giuliano",
+    source: "Google",
+    rating: 5,
+    when: "3 mesi fa",
+    quote:
+      "Un'officina fantastica gestita da due ragazzi splendidi. Alessio e Marco uniscono una grande competenza a un'onestà e una disponibilità rare da trovare oggi. Sono veramente persone di cuore. Consigliatissimi!",
+  },
+  {
+    id: "emanuele",
+    author: "Emanuele",
+    source: "Google",
+    rating: 5,
+    when: "4 mesi fa",
+    quote:
+      "Ottima esperienza, da quando hanno cambiato gestione l’aria di cambiamento si sente ed in questo caso ha portato solo ottime novità! Alessio e Marco sono stati super competenti e professionali, ci torneremo sicuramente. Consigliati.",
+  },
+  {
+    id: "erika",
+    author: "Erika",
+    source: "Google",
     rating: 5,
     when: "1 mese fa",
     quote:
-      "Ottima esperienza, da quando hanno cambiato gestione l’aria di cambiamento si sente ed in questo caso ha portato solo ottime novità! Alessio e Marco sono stati super competenti e professionali, ci torneremo sicuramente. Consigliati.",
+      "Ho lasciato la mia A1 per fare un cambio di catena. Comprato i pezzi, i ragazzi hanno fatto un ottimo lavoro, durante la settimana di ferragosto ad un prezzo davvero competitivo. Grazie mille!",
+  },
+  {
+    id: "giancarlo",
+    author: "Giancarlo",
+    source: "Google",
+    rating: 5,
+    when: "6 mesi fa",
+    quote:
+      "Personale altamente qualificato. Ho avuto un problema alla mia auto e mi hanno risolto il problema in pochissimo tempo. Veloci anche nelle revisioni.",
+  },
+  {
+    id: "nicole",
+    author: "Nicole",
+    source: "Google",
+    rating: 5,
+    when: "2 mesi fa",
+    quote:
+      "Un ambiente giovane e dinamico, gentilissimi e soprattutto pazienti! Super consigliato.",
   },
 ];
 
